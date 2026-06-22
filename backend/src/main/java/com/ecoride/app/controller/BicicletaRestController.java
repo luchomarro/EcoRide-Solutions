@@ -1,17 +1,16 @@
-package com.ecoride.app.controller;
+package com.ecoride.app.controller; // <-- Debe estar en singular igual que tu carpeta
 
 import com.ecoride.app.model.Bicicleta;
 import com.ecoride.app.services.BicicletaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.*; // <-- Mapea las anotaciones @PostMapping y @GetMapping
 import java.util.List;
 
-@RestController
+@RestController // <-- Verifica que use RestController y NO @Controller convencional
 @RequestMapping("/api/bicicletas")
-@CrossOrigin(origins = "*") // Crucial para la arquitectura distribuida (CORS con Angular)
+@CrossOrigin(origins = "*")
 public class BicicletaRestController {
 
     @Autowired
