@@ -1,4 +1,4 @@
-package com.ecoride.app.controllers;
+package com.ecoride.app.controller;
 
 import com.ecoride.app.model.Bicicleta;
 import com.ecoride.app.services.BicicletaService;
