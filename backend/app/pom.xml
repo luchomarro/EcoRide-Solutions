@@ -7,7 +7,6 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <!-- CORREGIDO: 4.1.0 no existe. Versión estable actual -->
         <version>3.4.1</version>
         <relativePath/>
     </parent>
@@ -19,20 +18,18 @@
     <description>EcoRide Solutions - API REST con Spring Boot</description>
 
     <properties>
-        <!-- CORREGIDO: Java 26 no existe. 21 es LTS actual -->
         <java.version>21</java.version>
     </properties>
 
     <dependencies>
 
-        <!-- Web MVC (REST + Thymeleaf) -->
-        <!-- CORREGIDO: spring-boot-starter-webmvc no existe → usar spring-boot-starter-web -->
+        <!-- Web MVC -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- Thymeleaf (vistas HTML del BicicletaController) -->
+        <!-- Thymeleaf -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -44,10 +41,35 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
-        <!-- Validación (Bean Validation) -->
+        <!-- Validación -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
+        <!-- ── SEMANA 6: Spring Security ───────────────────────────────── -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <!-- ── SEMANA 6: JWT (JJWT 0.12.x) ────────────────────────────── -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>0.12.6</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>0.12.6</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>0.12.6</version>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- MySQL Connector -->
@@ -57,7 +79,7 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- DevTools (hot reload) -->
+        <!-- DevTools -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -66,11 +88,14 @@
         </dependency>
 
         <!-- Test -->
-        <!-- CORREGIDO: spring-boot-starter-webmvc-test y thymeleaf-test no existen -->
-        <!-- spring-boot-starter-test incluye JUnit 5, Mockito y MockMvc -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
 
