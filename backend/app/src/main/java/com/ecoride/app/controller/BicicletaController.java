@@ -1,32 +1,37 @@
 package com.ecoride.app.controller;
 
 import com.ecoride.app.model.Bicicleta;
+import com.ecoride.app.model.EstadoBicicleta;
+import com.ecoride.app.services.BicicletaService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/bicicletas")
 public class BicicletaController {
 
-    // 1. Muestra la vista del formulario de registro (GET)
+    @Autowired
+    private BicicletaService bicicletaService;
+
     @GetMapping("/nuevo")
     public String mostrarFormulario(Model model) {
-        // Pasamos un objeto vacío que el formulario llenará con sus campos
         model.addAttribute("bicicleta", new Bicicleta());
+        model.addAttribute("estados", EstadoBicicleta.values());
         return "formulario-bicicleta";
     }
 
-    // 2. Procesa los datos enviados y redirige a la confirmación (POST)
     @PostMapping("/guardar")
     public String registrarBicicleta(@ModelAttribute("bicicleta") Bicicleta bicicleta, Model model) {
-        // En una etapa posterior aquí se llamaría al service/repository para persistir en MySQL
-        
-        // Enviamos el objeto capturado hacia la vista de confirmación
-        model.addAttribute("bicicletaRegistrada", bicicleta);
+        Bicicleta guardada = bicicletaService.guardar(bicicleta);
+        model.addAttribute("bicicletaRegistrada", guardada);
         return "confirmacion-bicicleta";
+    }
+
+    @GetMapping("/lista")
+    public String listar(Model model) {
+        model.addAttribute("bicicletas", bicicletaService.listarTodas());
+        return "lista-bicicletas";
     }
 }

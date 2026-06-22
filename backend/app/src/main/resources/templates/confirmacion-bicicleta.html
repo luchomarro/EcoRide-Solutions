@@ -7,55 +7,54 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
-
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card shadow-sm border-0">
-                    <div class="card-body p-5 text-center">
-                        <div class="text-success mb-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-check-circle-fill d-inline-block" viewBox="0 0 16 16">
-                              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                            </svg>
-                        </div>
-                        
-                        <h2 class="card-title text-success fw-bold mb-2">¡Registro Confirmado!</h2>
-                        <p class="text-muted mb-4">La bicicleta ha sido dada de alta correctamente en el sistema de EcoRide Solutions.</p>
-                        
-                        <div class="table-responsive text-start border rounded bg-white p-3 mb-4">
-                            <h6 class="text-uppercase text-secondary fw-bold border-bottom pb-2 mb-3">Resumen del Vehículo</h6>
-                            <table class="table table-borderless mb-0">
-                                <tr>
-                                    <th scope="row" class="text-muted py-1" style="width: 40%;">Código:</th>
-                                    <td class="fw-bold py-1" th:text="${bicicletaRegistrada.codigo}">-</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" class="text-muted py-1">Marca:</th>
-                                    <td class="py-1" th:text="${bicicletaRegistrada.marca}">-</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" class="text-muted py-1">Modelo:</th>
-                                    <td class="py-1" th:text="${bicicletaRegistrada.modelo}">-</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" class="text-muted py-1">Tipo:</th>
-                                    <td class="py-1"><span class="badge bg-secondary" th:text="${bicicletaRegistrada.tipo}">-</span></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" class="text-muted py-1">Estado:</th>
-                                    <td class="py-1"><span class="badge bg-success" th:text="${bicicletaRegistrada.estado}">-</span></td>
-                                </tr>
-                            </table>
-                        </div>
-
-                        <div class="d-grid gap-2">
-                            <a th:href="@{/bicicletas/nuevo}" class="btn btn-primary">Registrar otra bicicleta</a>
-                        </div>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-5 text-center">
+                    <div class="text-success mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"
+                             fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                        </svg>
+                    </div>
+                    <h2 class="card-title text-success fw-bold mb-2">¡Registro Confirmado!</h2>
+                    <p class="text-muted mb-4">La bicicleta fue ingresada correctamente al sistema.</p>
+                    <div class="table-responsive text-start border rounded bg-white p-3 mb-4">
+                        <h6 class="text-uppercase text-secondary fw-bold border-bottom pb-2 mb-3">Resumen</h6>
+                        <table class="table table-borderless mb-0">
+                            <tr>
+                                <th class="text-muted py-1" style="width:40%">ID asignado:</th>
+                                <td class="fw-bold py-1" th:text="${bicicletaRegistrada.id}">-</td>
+                            </tr>
+                            <tr>
+                                <th class="text-muted py-1">Nombre:</th>
+                                <td class="py-1" th:text="${bicicletaRegistrada.nombre}">-</td>
+                            </tr>
+                            <tr>
+                                <th class="text-muted py-1">Descripción:</th>
+                                <td class="py-1" th:text="${bicicletaRegistrada.descripcion}">-</td>
+                            </tr>
+                            <tr>
+                                <th class="text-muted py-1">Precio / hora:</th>
+                                <td class="py-1">S/ <span th:text="${bicicletaRegistrada.precioHora}">-</span></td>
+                            </tr>
+                            <tr>
+                                <th class="text-muted py-1">Estado:</th>
+                                <td class="py-1">
+                                    <span class="badge bg-success" th:text="${bicicletaRegistrada.estado}">-</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <a th:href="@{/bicicletas/nuevo}" class="btn btn-primary">Registrar otra bicicleta</a>
+                        <a th:href="@{/bicicletas/lista}" class="btn btn-outline-secondary">Ver inventario completo</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+</div>
 </body>
 </html>
