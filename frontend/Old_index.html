@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoRide - Sistema Web de Alquiler de Bicicletas</title>
+    <link rel="stylesheet" href="Style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Eco<span>Ride</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#beneficios">Beneficios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#catalogo">Catálogo</a></li>
+                    <li class="nav-item">
+                        <button class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#loginModal">
+                            <i class="bi bi-person-fill"></i> Iniciar Sesión
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero-section d-flex align-items-center text-center text-white">
+        <div class="container">
+            <h1 class="display-3 fw-bold mb-4">Movilidad Urbana Sostenible con EcoRide</h1>
+            <p class="lead mb-4">Alquila una bicicleta inteligente y sé parte del cambio ecológico alineado con el ODS 9.</p>
+            <button class="btn btn-success btn-lg px-5 py-3" onclick="scrollToCatalog()">Ver Catálogo</button>
+        </div>
+    </section>
+
+    <!-- Módulo de Catálogo -->
+    <section id="catalogo" class="catalog bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="badge bg-success px-3 py-2 mb-2">Nuestra Flota</span>
+                <h2 class="fw-bold">Elige tu EcoRide Perfecta</h2>
+                <p class="text-muted">Bicicletas optimizadas para el tránsito urbano de Lima</p>
+            </div>
+            
+            <div class="row g-4">
+                <!-- Tarjeta 1 -->
+                <div class="col-md-4">
+                    <div class="card bike-card">
+                        <img src="https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Eco City Express">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title fw-bold">Eco City Express</h5>
+                            <p class="card-text text-muted flex-grow-1">Perfecta para trayectos rápidos diarios con canasta integrada y luz LED.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="bike-price">S/ 4.50 <small class="text-muted" style="font-size:0.75rem;">/ hora</small></span>
+                                <span class="badge bg-success-subtle text-success">Disponible</span>
+                            </div>
+                            <button class="btn btn-outline-dark w-100 mt-3" onclick="simulateBooking('Eco City Express')">Reservar Ahora</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 2 -->
+                <div class="col-md-4">
+                    <div class="card bike-card">
+                        <img src="https://images.unsplash.com/photo-1571068316344-75bc76f77891?auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Eco E-Bike Pro">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title fw-bold">Eco E-Bike Pro</h5>
+                            <p class="card-text text-muted flex-grow-1">Asistencia eléctrica inteligente para pendientes complejas y tramos largos.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="bike-price">S/ 8.00 <small class="text-muted" style="font-size:0.75rem;">/ hora</small></span>
+                                <span class="badge bg-success-subtle text-success">Disponible</span>
+                            </div>
+                            <button class="btn btn-outline-dark w-100 mt-3" onclick="simulateBooking('Eco E-Bike Pro')">Reservar Ahora</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 3 -->
+                <div class="col-md-4">
+                    <div class="card bike-card">
+                        <img src="https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Eco Mountain Heavy">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title fw-bold">Eco Mountain Heavy</h5>
+                            <p class="card-text text-muted flex-grow-1">Estructura reforzada y llantas anchas para terrenos irregulares de la ciudad.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="bike-price">S/ 6.00 <small class="text-muted" style="font-size:0.75rem;">/ hora</small></span>
+                                <span class="badge bg-danger-subtle text-danger">En Uso</span>
+                            </div>
+                            <button class="btn btn-secondary w-100 mt-3" disabled>No Disponible</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Modal (Bootstrap Integration Enhancement) -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold" id="loginModalLabel">Acceso a EcoRide</h5>
+                    <button type="button" class="btn-close" data-bs-dash="modal" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm" onsubmit="handleLogin(event)">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Usuario / Correo Institucional</label>
+                            <input type="text" class="form-value form-control" id="username" required placeholder="ejemplo@upn.pe">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="password" required placeholder="••••••••">
+                        </div>
+                        <div class="alert alert-info py-2" role="alert" style="font-size:0.85rem;">
+                            <i class="bi bi-info-circle-fill"></i> Nota: El módulo de autenticación real se conectará con Spring Security + JWT en la T2.
+                        </div>
+                        <button type="submit" class="btn btn-success w-100 py-2">Ingresar Sistema</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="container">
+            <h5 class="fw-bold mb-3">Sistema Web de Alquiler de Bicicletas</h5>
+            <p class="footer-text mb-1">Proyecto desarrollado para el curso de Soluciones Web y Aplicaciones Distribuidas</p>
+            <p class="footer-text mb-3">Autores: Caqui Calixto, Jhon Daniel & Marroquin Cardenas, Luis Erick | UPN 2026</p>
+            <hr class="border-secondary">
+            <p class="footer-text mt-3">&copy; 2026 EcoRide. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function scrollToCatalog() {
+            document.getElementById('catalogo').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function simulateBooking(bikeName) {
+            alert(`[API EcoRide Rest]
+
+Conectando con endpoints en Spring Boot para verificar la disponibilidad de "${bikeName}"...
+¡Reserva en cola exitosa!`);
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            alert('[Seguridad EcoRide]
+
+Simulación de Login exitosa. Campos validados de forma interactiva en Frontend.');
+            const modalElement = document.getElementById('loginModal');
+            const modal = bootstrap.Modal.getInstance(modalElement);
+            modal.hide();
+        }
+    </script>
+</body>
+</html>
