@@ -1,38 +1,63 @@
 package com.ecoride.app.model;
 
-public class Bicicleta {
-    // Los 5 atributos requeridos para el formulario
-    private String codigo;
-    private String marca;
-    private String modelo;
-    private String tipo; // Urbana, Montaña, Eléctrica
-    private String estado; // Disponible, Mantenimiento, Alquilada
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
-    // Constructor vacío (necesario para el data-binding de Spring)
+@Entity
+@Table(name = "bicicletas")
+public class Bicicleta {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotBlank(message = "El nombre es obligatorio")
+    @Column(nullable = false, length = 100)
+    private String nombre;
+
+    @Column(columnDefinition = "TEXT")
+    private String descripcion;
+
+    @NotNull(message = "El precio por hora es obligatorio")
+    @Positive(message = "El precio debe ser mayor a 0")
+    @Column(name = "precio_hora", nullable = false)
+    private Double precioHora;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private EstadoBicicleta estado = EstadoBicicleta.DISPONIBLE;
+
+    @Column(name = "url_imagen", length = 255)
+    private String urlImagen;
+
     public Bicicleta() {}
 
-    // Constructor con parámetros
-    public Bicicleta(String codigo, String marca, String modelo, String tipo, String estado) {
-        this.codigo = codigo;
-        this.marca = marca;
-        this.modelo = modelo;
-        this.tipo = tipo;
+    public Bicicleta(String nombre, String descripcion, Double precioHora,
+                     EstadoBicicleta estado, String urlImagen) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precioHora = precioHora;
         this.estado = estado;
+        this.urlImagen = urlImagen;
     }
 
-    // Getters y Setters
-    public String getCodigo() { return codigo; }
-    public void setCodigo(String codigo) { this.codigo = codigo; }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public String getMarca() { return marca; }
-    public void setMarca(String marca) { this.marca = marca; }
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public String getModelo() { return modelo; }
-    public void setModelo(String modelo) { this.modelo = modelo; }
+    public String getDescripcion() { return descripcion; }
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
 
-    public String getTipo() { return tipo; }
-    public void setTipo(String tipo) { this.tipo = tipo; }
+    public Double getPrecioHora() { return precioHora; }
+    public void setPrecioHora(Double precioHora) { this.precioHora = precioHora; }
 
-    public String getEstado() { return estado; }
-    public void setEstado(String estado) { this.estado = estado; }
+    public EstadoBicicleta getEstado() { return estado; }
+    public void setEstado(EstadoBicicleta estado) { this.estado = estado; }
+
+    public String getUrlImagen() { return urlImagen; }
+    public void setUrlImagen(String urlImagen) { this.urlImagen = urlImagen; }
 }

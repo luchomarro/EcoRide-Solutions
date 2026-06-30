@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoRide - Inventario</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold mb-0">🚲 Inventario de Bicicletas</h3>
+        <a th:href="@{/bicicletas/nuevo}" class="btn btn-success">+ Registrar nueva</a>
+    </div>
+    <div class="card shadow-sm border-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Precio/hora</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${#lists.isEmpty(bicicletas)}">
+                        <td colspan="5" class="text-center text-muted py-4">No hay bicicletas registradas.</td>
+                    </tr>
+                    <tr th:each="b : ${bicicletas}">
+                        <td th:text="${b.id}">-</td>
+                        <td th:text="${b.nombre}">-</td>
+                        <td th:text="${b.descripcion}">-</td>
+                        <td>S/ <span th:text="${b.precioHora}">-</span></td>
+                        <td>
+                            <span class="badge"
+                                  th:classappend="${b.estado.name() == 'DISPONIBLE'} ? 'bg-success' :
+                                                  (${b.estado.name() == 'EN_USO'} ? 'bg-warning text-dark' : 'bg-secondary')"
+                                  th:text="${b.estado}">-</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
