@@ -1,0 +1,16 @@
+.card {
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.page-link {
+  cursor: pointer;
+  color: #198754;
+}
+
+.page-item.active .page-link {
+  background-color: #198754;
+  border-color: #198754;
+  color: #fff;
+}

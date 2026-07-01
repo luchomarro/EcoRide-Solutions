@@ -1,0 +1,73 @@
+<div class="row justify-content-center">
+  <div class="col-md-7">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <h3 class="card-title mb-4">
+          @if (esEdicion) {
+            <i class="bi bi-pencil-square text-primary"></i> Editar bicicleta #{{ id }}
+          } @else {
+            <i class="bi bi-plus-circle text-success"></i> Nueva bicicleta
+          }
+        </h3>
+
+        @if (error) {
+          <div class="alert alert-danger py-2">{{ error }}</div>
+        }
+
+        <form [formGroup]="form" (ngSubmit)="guardar()">
+          <div class="mb-3">
+            <label class="form-label">Nombre <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" formControlName="nombre" />
+            @if (form.controls.nombre.touched && form.controls.nombre.invalid) {
+              <div class="text-danger small mt-1">El nombre es obligatorio.</div>
+            }
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Descripción</label>
+            <textarea class="form-control" rows="2" formControlName="descripcion"></textarea>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Precio por hora <span class="text-danger">*</span></label>
+              <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input type="number" step="0.01" min="0" class="form-control" formControlName="precioHora" />
+              </div>
+              @if (form.controls.precioHora.touched && form.controls.precioHora.invalid) {
+                <div class="text-danger small mt-1">El precio debe ser mayor a 0.</div>
+              }
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Estado <span class="text-danger">*</span></label>
+              <select class="form-select" formControlName="estado">
+                @for (e of estados; track e) {
+                  <option [value]="e">{{ e }}</option>
+                }
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label">URL de imagen</label>
+            <input type="text" class="form-control" formControlName="urlImagen"
+                   placeholder="https://…" />
+          </div>
+
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-success" [disabled]="cargando">
+              @if (cargando) {
+                <span class="spinner-border spinner-border-sm me-1"></span> Guardando…
+              } @else {
+                <i class="bi bi-check-lg"></i> Guardar
+              }
+            </button>
+            <a class="btn btn-outline-secondary" routerLink="/bicicletas">Cancelar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

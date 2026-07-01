@@ -1,23 +1,34 @@
-# 🚲 EcoRide Solutions - Guía de Configuración del Sistema Distribuido
+# EcoRide Solutions
 
-Este proyecto académico corresponde al curso **Soluciones Web y Aplicaciones Distribuidas** de la **UPN**. Se implementa bajo una arquitectura desacoplada utilizando un Frontend en Angular/Bootstrap y un Backend basado en REST APIs con Java Spring Boot y persistencia en MySQL, alineado al **ODS 9**.
+Sistema de gestión de inventario para alquiler de bicicletas compartidas.
 
----
+Proyecto académico UPN — Soluciones Web y Aplicaciones Distribuidas (SIST1402A).
 
-## 🏗️ 1. Estructura Recomendada para GitHub
-Para un control de versiones óptimo, clona tu repositorio vacío y organiza la raíz de la siguiente manera antes de realizar el primer `git commit`:
+Alineado al ODS 9: Industria, Innovación e Infraestructura.
 
-```text
-ecoride-solutions/
-├── .gitignore
-├── README.md
-├── frontend/
-│   ├── Index-alquiler.html
-│   └── Style.css
-└── backend/
-    ├── pom.xml
-    ├── schema.sql
-    └── src/
-        └── main/
-            ├── java/com/ecoride/api/...
-            └── resources/application.properties
+## Stack
+
+- Backend: Spring Boot 3.4.1 + Java 21 + MySQL + Spring Security + JWT
+- Frontend: Angular 18 standalone
+- Documentación API: Swagger UI en http://localhost:8081/swagger-ui.html
+
+## Levantar el proyecto
+
+### Backend
+
+```bash
+cd backend/app
+./mvnw spring-boot:run
+```
+
+### Frontend
+
+```bash
+cd frontend
+ng serve
+```
+
+## Usuarios de prueba
+
+- admin / admin123
+- operador / op123

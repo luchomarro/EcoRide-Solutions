@@ -1,0 +1,16 @@
+# Backend
+backend/app/target/
+backend/app/.github/
+backend/app/error.txt
+*.class
+*.log
+
+# Frontend
+frontend/node_modules/
+frontend/.angular/cache/
+frontend/dist/
+
+# General
+.DS_Store
+Thumbs.db
+*.tmp

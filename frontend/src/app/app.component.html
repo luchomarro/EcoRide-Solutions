@@ -1,0 +1,43 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/bicicletas">
+      Eco<span class="text-success">Ride</span> Solutions
+    </a>
+
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/bicicletas" routerLinkActive="active">
+            <i class="bi bi-bicycle"></i> Inventario
+          </a>
+        </li>
+        @if (auth.isLoggedIn()) {
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/bicicletas/nuevo" routerLinkActive="active">
+              <i class="bi bi-plus-circle"></i> Nueva bicicleta
+            </a>
+          </li>
+        }
+      </ul>
+
+      <div class="d-flex align-items-center">
+        @if (auth.isLoggedIn()) {
+          <span class="text-light me-3">
+            <i class="bi bi-person-circle"></i> {{ auth.currentUser() }}
+          </span>
+          <button class="btn btn-outline-light btn-sm" (click)="logout()">
+            <i class="bi bi-box-arrow-right"></i> Cerrar sesión
+          </button>
+        } @else {
+          <a class="btn btn-success btn-sm" routerLink="/login">
+            <i class="bi bi-person-fill"></i> Iniciar sesión
+          </a>
+        }
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main class="container py-4">
+  <router-outlet></router-outlet>
+</main>

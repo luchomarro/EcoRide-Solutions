@@ -1,0 +1,90 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2 class="mb-0"><i class="bi bi-bicycle text-success"></i> Inventario de bicicletas</h2>
+  @if (auth.isLoggedIn()) {
+    <a class="btn btn-success" routerLink="/bicicletas/nuevo">
+      <i class="bi bi-plus-circle"></i> Nueva bicicleta
+    </a>
+  }
+</div>
+
+@if (error) {
+  <div class="alert alert-danger">{{ error }}</div>
+}
+
+@if (cargando) {
+  <div class="text-center py-5">
+    <span class="spinner-border text-success"></span>
+  </div>
+} @else if (pagina) {
+  <div class="card shadow-sm">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th class="text-end">Precio/hora</th>
+            <th class="text-center">Estado</th>
+            @if (auth.isLoggedIn()) {
+              <th class="text-center">Acciones</th>
+            }
+          </tr>
+        </thead>
+        <tbody>
+          @for (b of pagina.content; track b.id) {
+            <tr>
+              <td>{{ b.id }}</td>
+              <td class="fw-semibold">{{ b.nombre }}</td>
+              <td class="text-muted">{{ b.descripcion || '—' }}</td>
+              <td class="text-end">{{ b.precioHora | currency:'USD':'symbol':'1.2-2' }}</td>
+              <td class="text-center">
+                <span class="badge" [class]="badgeClase(b.estado)">{{ b.estado }}</span>
+              </td>
+              @if (auth.isLoggedIn()) {
+                <td class="text-center">
+                  <a class="btn btn-sm btn-outline-primary me-1"
+                     [routerLink]="['/bicicletas/editar', b.id]">
+                    <i class="bi bi-pencil"></i>
+                  </a>
+                  <button class="btn btn-sm btn-outline-danger" (click)="eliminar(b)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </td>
+              }
+            </tr>
+          } @empty {
+            <tr>
+              <td [attr.colspan]="auth.isLoggedIn() ? 6 : 5" class="text-center text-muted py-4">
+                No hay bicicletas registradas.
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Paginación -->
+  @if (pagina.totalPages > 1) {
+    <nav class="mt-3 d-flex justify-content-between align-items-center">
+      <span class="text-muted small">
+        Página {{ pagina.number + 1 }} de {{ pagina.totalPages }}
+        · {{ pagina.totalElements }} bicicletas
+      </span>
+      <ul class="pagination mb-0">
+        <li class="page-item" [class.disabled]="pagina.first">
+          <button class="page-link" (click)="irA(page - 1)">Anterior</button>
+        </li>
+        @for (p of [].constructor(pagina.totalPages); let i = $index; track i) {
+          <li class="page-item" [class.active]="i === pagina.number">
+            <button class="page-link" (click)="irA(i)">{{ i + 1 }}</button>
+          </li>
+        }
+        <li class="page-item" [class.disabled]="pagina.last">
+          <button class="page-link" (click)="irA(page + 1)">Siguiente</button>
+        </li>
+      </ul>
+    </nav>
+  }
+}

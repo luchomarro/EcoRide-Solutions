@@ -21,14 +21,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 /**
  * SEMANA 6 — Spring Security + JWT
- * Fix: @Lazy en JwtFilter para romper la dependencia circular con SecurityConfig.
+ * SEMANA 7 — Rutas de Swagger UI agregadas como públicas para poder
+ *            documentar y probar la API sin necesidad de loguearse primero.
  */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-    // @Lazy rompe el ciclo: Spring crea SecurityConfig primero y JwtFilter
-    // se inicializa solo cuando se necesita por primera vez (primer request).
     @Lazy
     @Autowired
     private JwtFilter jwtFilter;
@@ -45,6 +44,15 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.PUT,    "/api/bicicletas/**").authenticated()
                 .requestMatchers(HttpMethod.DELETE, "/api/bicicletas/**").authenticated()
                 .requestMatchers("/bicicletas/**").permitAll()
+
+                // ── SEMANA 7: Swagger UI + OpenAPI público ──────────────────
+                .requestMatchers(
+                    "/swagger-ui/**",
+                    "/swagger-ui.html",
+                    "/v3/api-docs/**",
+                    "/v3/api-docs.yaml"
+                ).permitAll()
+
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
