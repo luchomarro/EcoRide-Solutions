@@ -1,0 +1,125 @@
+/* Variables EcoRide */
+:root {
+  --primary-color: #16c25d;
+  --dark-color: #1a1a1a;
+  --light-color: #f8f9fa;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+.navbar-brand {
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: var(--dark-color) !important;
+  cursor: pointer;
+}
+.navbar-brand span {
+  color: var(--primary-color);
+}
+.nav-link {
+  font-weight: 600;
+  margin-left: 15px;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+.nav-link:hover {
+  color: var(--primary-color) !important;
+}
+
+/* Hero */
+.hero-section {
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+    url('https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=1920&q=80');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  height: 80vh;
+  margin-top: 56px;
+}
+
+/* Catálogo */
+.catalog {
+  padding: 80px 0;
+}
+.bike-card {
+  border: none;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease;
+}
+.bike-card:hover {
+  transform: translateY(-10px);
+}
+.bike-card img {
+  height: 250px;
+  object-fit: cover;
+}
+.bike-price {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.bike-card .btn-outline-dark:hover,
+.bike-card .btn-outline-dark:active {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+}
+.bike-card .btn-outline-dark:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(22,194,93,0.4);
+  background-color: var(--dark-color);
+  color: white;
+}
+
+/* Footer */
+footer {
+  background-color: var(--dark-color);
+  color: white;
+  padding: 40px 0 20px;
+}
+.footer-text {
+  color: #adb5bd;
+  font-size: 0.9rem;
+}
+
+/* Modal Angular (sin Bootstrap JS) */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.15s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.modal-box {
+  background: white;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  animation: slideUp 0.2s ease;
+  overflow: hidden;
+}
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+.modal-header-custom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+.modal-body-custom {
+  padding: 24px;
+}

@@ -1,31 +1,23 @@
 import { Routes } from '@angular/router';
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
+import { BicicletaListComponent } from './components/bicicleta-list/bicicleta-list.component';
+import { BicicletaFormComponent } from './components/bicicleta-form/bicicleta-form.component';
 import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'bicicletas', pathMatch: 'full' },
+  // Página de inicio con hero, beneficios y catálogo
+  { path: '', component: HomeComponent },
 
-  {
-    path: 'login',
-    loadComponent: () =>
-      import('./components/login/login.component').then(m => m.LoginComponent)
-  },
-  {
-    path: 'bicicletas',
-    loadComponent: () =>
-      import('./components/bicicleta-list/bicicleta-list.component').then(m => m.BicicletaListComponent)
-  },
-  {
-    path: 'bicicletas/nuevo',
-    canActivate: [authGuard],
-    loadComponent: () =>
-      import('./components/bicicleta-form/bicicleta-form.component').then(m => m.BicicletaFormComponent)
-  },
-  {
-    path: 'bicicletas/editar/:id',
-    canActivate: [authGuard],
-    loadComponent: () =>
-      import('./components/bicicleta-form/bicicleta-form.component').then(m => m.BicicletaFormComponent)
-  },
+  // Login standalone (ruta directa, no solo modal)
+  { path: 'login', component: LoginComponent },
 
-  { path: '**', redirectTo: 'bicicletas' }
+  // Inventario completo
+  { path: 'bicicletas', component: BicicletaListComponent },
+
+  // Crear y editar: protegidas con authGuard
+  { path: 'bicicletas/nuevo',       component: BicicletaFormComponent, canActivate: [authGuard] },
+  { path: 'bicicletas/editar/:id',  component: BicicletaFormComponent, canActivate: [authGuard] },
+
+  { path: '**', redirectTo: '' }
 ];

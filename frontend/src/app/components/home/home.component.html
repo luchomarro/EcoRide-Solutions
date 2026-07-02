@@ -1,0 +1,165 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">Eco<span>Ride</span></a>
+    <button class="navbar-toggler" type="button" (click)="navOpen = !navOpen">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" [class.show]="navOpen">
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item"><a class="nav-link" style="cursor:pointer" (click)="scrollTo('inicio')">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" style="cursor:pointer" (click)="scrollTo('beneficios')">Beneficios</a></li>
+        <li class="nav-item"><a class="nav-link" style="cursor:pointer" (click)="scrollTo('catalogo')">Catálogo</a></li>
+        <li class="nav-item">
+          @if (authService.isLoggedIn()) {
+            <a routerLink="/bicicletas" class="btn btn-success ms-2">
+              <i class="bi bi-speedometer2"></i> Ir al sistema
+            </a>
+          } @else {
+            <button class="btn btn-primary ms-2" (click)="abrirModal()">
+              <i class="bi bi-person-fill"></i> Iniciar Sesión
+            </button>
+          }
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section id="inicio" class="hero-section d-flex align-items-center text-center text-white">
+  <div class="container">
+    <h1 class="display-3 fw-bold mb-4">Movilidad Urbana Sostenible con EcoRide</h1>
+    <p class="lead mb-4">Alquila una bicicleta inteligente y sé parte del cambio ecológico alineado con el ODS 9.</p>
+    <button class="btn btn-success btn-lg px-5 py-3" (click)="scrollTo('catalogo')">Ver Catálogo</button>
+  </div>
+</section>
+
+<!-- Beneficios -->
+<section id="beneficios" class="py-5">
+  <div class="container text-center">
+    <h2 class="fw-bold mb-4">Beneficios de usar EcoRide</h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <i class="bi bi-shield-check text-success display-4"></i>
+        <h4 class="mt-3">Seguridad Garantizada</h4>
+        <p class="text-muted">Nuestras bicicletas cuentan con mantenimiento constante y rastreo en tiempo real.</p>
+      </div>
+      <div class="col-md-4">
+        <i class="bi bi-geo-alt text-success display-4"></i>
+        <h4 class="mt-3">Estaciones Estratégicas</h4>
+        <p class="text-muted">Encuentra y entrega bicicletas en los puntos clave de la red urbana de Lima.</p>
+      </div>
+      <div class="col-md-4">
+        <i class="bi bi-flower1 text-success display-4"></i>
+        <h4 class="mt-3">Cero Emisiones</h4>
+        <p class="text-muted">Reduce tu huella de carbono y contribuye directamente con el cumplimiento del ODS 9.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Catálogo desde la API -->
+<section id="catalogo" class="catalog bg-light">
+  <div class="container">
+    <div class="text-center mb-5">
+      <span class="badge bg-success px-3 py-2 mb-2">Nuestra Flota</span>
+      <h2 class="fw-bold">Elige tu EcoRide Perfecta</h2>
+      <p class="text-muted">Bicicletas optimizadas para el tránsito urbano de Lima</p>
+    </div>
+
+    @if (cargandoCatalogo()) {
+      <p class="text-center text-muted py-5">Cargando catálogo...</p>
+    } @else {
+      <div class="row g-4">
+        @for (b of bicicletas(); track b.id) {
+          <div class="col-md-4">
+            <div class="card bike-card h-100">
+              <img [src]="getImagen(b)" class="card-img-top" [alt]="b.nombre">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title fw-bold">{{ b.nombre }}</h5>
+                <p class="card-text text-muted flex-grow-1">
+                  {{ b.descripcion || 'Bicicleta disponible para alquiler en Lima.' }}
+                </p>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                  <span class="bike-price">
+                    S/ {{ b.precioHora | number:'1.2-2' }}
+                    <small class="text-muted" style="font-size:0.75rem">/ hora</small>
+                  </span>
+                  <span [class]="claseBadge(b.estado)">{{ textoEstado(b.estado) }}</span>
+                </div>
+                @if (b.estado === 'DISPONIBLE') {
+                  <button class="btn btn-outline-dark w-100 mt-3"
+                          (click)="authService.isLoggedIn() ? router.navigate(['/bicicletas']) : abrirModal()">
+                    {{ authService.isLoggedIn() ? 'Ver inventario completo' : 'Reservar Ahora' }}
+                  </button>
+                } @else {
+                  <button class="btn btn-secondary w-100 mt-3" disabled>No Disponible</button>
+                }
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="text-center mt-5">
+        <a routerLink="/bicicletas" class="btn btn-success btn-lg px-5">
+          Ver inventario completo →
+        </a>
+      </div>
+    }
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="text-center">
+  <div class="container">
+    <h5 class="fw-bold mb-3">Sistema Web de Alquiler de Bicicletas</h5>
+    <p class="footer-text mb-1">Proyecto desarrollado para el curso de Soluciones Web y Aplicaciones Distribuidas</p>
+    <p class="footer-text mb-3">Autores: Caqui Calixto, Jhon Daniel & Marroquin Cardenas, Luis Erick | UPN 2026</p>
+    <hr class="border-secondary">
+    <p class="footer-text mt-3">&copy; 2026 EcoRide. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<!-- Modal Login Angular (sin Bootstrap JS, puro Angular) -->
+@if (modalVisible()) {
+  <div class="modal-overlay" (click)="cerrarModal()">
+    <div class="modal-box" (click)="$event.stopPropagation()">
+      <div class="modal-header-custom">
+        <h5 class="fw-bold mb-0">Acceso al Sistema EcoRide</h5>
+        <button class="btn-close" (click)="cerrarModal()"></button>
+      </div>
+      <div class="modal-body-custom">
+        <form (ngSubmit)="onLogin()" #loginForm="ngForm">
+          <div class="mb-3 text-start">
+            <label class="form-label fw-semibold">Usuario</label>
+            <input type="text" class="form-control" name="username"
+                   [(ngModel)]="username" required placeholder="admin">
+          </div>
+          <div class="mb-3 text-start">
+            <label class="form-label fw-semibold">Contraseña</label>
+            <input type="password" class="form-control" name="password"
+                   [(ngModel)]="password" required placeholder="••••••••">
+          </div>
+
+          @if (loginError()) {
+            <div class="alert alert-danger py-2" role="alert" style="font-size:0.85rem">
+              <i class="bi bi-exclamation-triangle-fill"></i> {{ loginError() }}
+            </div>
+          } @else {
+            <div class="alert alert-info py-2 text-start" role="alert" style="font-size:0.85rem">
+              <i class="bi bi-info-circle-fill"></i>
+              Autenticado con Spring Security + JWT.
+            </div>
+          }
+
+          <button type="submit" class="btn btn-success w-100 py-2"
+                  [disabled]="!loginForm.valid || loginCargando()">
+            {{ loginCargando() ? 'Ingresando...' : 'Ingresar' }}
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+}
