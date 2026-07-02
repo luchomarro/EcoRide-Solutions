@@ -58,6 +58,9 @@ public class SecurityConfig {
                     "/v3/api-docs.yaml"
                 ).permitAll()
 
+                // ── Frontend Angular (recursos estáticos) ────────────────────
+                .requestMatchers("/", "/index.html", "/*.js", "/*.css", "/*.ico", "/assets/**").permitAll()
+
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
